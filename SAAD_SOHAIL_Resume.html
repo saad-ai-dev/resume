@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saad Sohail — Senior Software Engineer</title>
+<style>
+  @page {
+    size: A4;
+    margin: 14mm 18mm 12mm 18mm;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.35;
+    font-size: 8pt;
+    background: #f0f0f0;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: #fff;
+    padding: 14mm 18mm 12mm 18mm;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page {
+      margin: 0;
+      padding: 0;
+      min-height: auto;
+      width: auto;
+    }
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+
+  .header-left h1 {
+    font-size: 22pt;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #111;
+    line-height: 1.1;
+  }
+
+  .header-left .subtitle {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #444;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  .header-right {
+    text-align: right;
+    font-size: 9pt;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .header-right a {
+    color: #444;
+    text-decoration: none;
+  }
+
+  .header-right a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Summary ── */
+  .summary {
+    margin: 6px 0 10px 0;
+    font-size: 8.5pt;
+    color: #333;
+    line-height: 1.45;
+  }
+
+  /* ── Section ── */
+  .section-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #111;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 2px;
+    margin: 8px 0 5px 0;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* ── Job Entry ── */
+  .job {
+    margin-bottom: 6px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+  }
+
+  .job-header .company {
+    font-weight: 700;
+    font-size: 8.5pt;
+    color: #111;
+  }
+
+  .job-header .dates {
+    font-size: 8.5pt;
+    color: #555;
+    font-style: italic;
+  }
+
+  .job-role {
+    font-weight: 600;
+    font-size: 8.5pt;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .job ul {
+    margin-left: 16px;
+    padding: 0;
+  }
+
+  .job ul li {
+    margin-bottom: 1px;
+    font-size: 8pt;
+    color: #222;
+  }
+
+  /* ── Skills ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+    margin-top: 6px;
+  }
+
+  .skill-category {
+    margin-bottom: 4px;
+    break-inside: avoid;
+  }
+
+  .skill-category .label {
+    font-weight: 700;
+    font-size: 8.5pt;
+    color: #333;
+  }
+
+  .skill-category .values {
+    font-size: 8.5pt;
+    color: #444;
+  }
+
+  /* ── Education & Languages ── */
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 6px;
+    break-inside: avoid;
+  }
+
+  .edu-row .school {
+    font-weight: 700;
+    font-size: 8.5pt;
+  }
+
+  .edu-row .year {
+    font-size: 8.5pt;
+    color: #555;
+    font-style: italic;
+  }
+
+  .edu-degree {
+    font-size: 8.5pt;
+    color: #333;
+  }
+
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+    margin-top: 8px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .languages {
+    margin-top: 4px;
+    font-size: 8.5pt;
+    color: #333;
+  }
+
+  /* ── Cover Letter Generator (screen only) ── */
+  .generator-section {
+    margin-top: 20px;
+    padding: 20px 24px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background: #fafafa;
+  }
+
+  .generator-section h2 {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+    border-bottom: 2.5px solid #111;
+    padding-bottom: 4px;
+  }
+
+  .generator-section label {
+    display: block;
+    font-size: 9pt;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+    margin-top: 12px;
+  }
+
+  .generator-section input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 9pt;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+
+  .generator-section textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 8.5pt;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    line-height: 1.5;
+    resize: vertical;
+    color: #222;
+  }
+
+  .generator-section .btn-copy {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 6px 14px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #fff;
+    background: #111;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .generator-section .btn-copy:hover {
+    background: #333;
+  }
+
+  .generator-section .hint {
+    font-size: 8pt;
+    color: #888;
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  @media print {
+    .generator-section {
+      display: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════ HEADER ═══════ -->
+  <div class="header">
+    <div class="header-left">
+      <h1>SAAD SOHAIL</h1>
+      <div class="subtitle">SENIOR SOFTWARE ENGINEER</div>
+    </div>
+    <div class="header-right">
+      <a href="mailto:engr.saadsohail@gmail.com">engr.saadsohail@gmail.com</a><br>
+      +92-303-5229779<br>
+      <a href="https://www.linkedin.com/in/dev-saad-sohail/">linkedin.com/in/dev-saad-sohail</a><br>
+      <a href="https://github.com/rishat5081">github.com/rishat5081</a><br>
+      Lahore, PK
+    </div>
+  </div>
+
+  <!-- ═══════ SUMMARY ═══════ -->
+  <p class="summary">
+    Senior Full-Stack Software Engineer with 6+ years of experience designing, developing, and deploying high-performance
+    web applications and RESTful APIs. I specialize in building production-grade Node.js systems backed by PostgreSQL, MongoDB,
+    and AWS — and enhancing them with Large Language Models (LLMs) and Generative AI. Experienced in fine-tuning GPT-4, building
+    RAG architectures, and integrating Claude, OpenAI, and Gemini into production. Passionate about clean architecture,
+    scalable systems, and shipping high-quality software in fast-paced teams.
+  </p>
+
+  <!-- ═══════ WORK EXPERIENCE ═══════ -->
+  <div class="section-title">Work Experience</div>
+
+  <!-- Obenan -->
+  <div class="job">
+    <div class="job-header">
+      <span class="company">Obenan</span>
+      <span class="dates">May 2023 — Present</span>
+    </div>
+    <div class="job-role">Senior Full-Stack Engineer</div>
+    <ul>
+      <li>Collaborated with Uberall, November5, and Le Pain Quotidien to architect and integrate robust APIs, enabling seamless data exchange for location management, reviews, and operational automation.</li>
+      <li>Developed and integrated Business Performance, Location, Insights, Reviews, Keywords, Attributes, Categories, Services, and Brands APIs to enhance organizational metrics, SEO, and business discoverability.</li>
+      <li>Engineered Lodging Post APIs for hotel-specific data management and customer interaction.</li>
+      <li>Built AI-powered chat and completion features using Claude AI, GPT-3, GPT-3.5 Turbo, GPT-4, GPT-4.0 Mini, and OpenAI Codex — fine-tuned models and designed RAG-based architectures for real-time AI-driven conversational systems.</li>
+      <li>Leveraged AI-assisted development (Claude Code, Codex, agentic workflows, vibe coding) to accelerate feature delivery and prototype rapidly across the stack.</li>
+      <li>Optimized API response times and database query performance, improving system responsiveness and reducing latency across core services.</li>
+      <li>Enhanced project structure for better organization and scalability; established coding standards for consistent and maintainable code.</li>
+      <li>Expanded GitHub workflows with branching strategies, branch protection rules, and integrated Sentry + Code Climate into GitHub/Jira workflows for code quality and error monitoring.</li>
+      <li>Deployed, managed, and optimized EC2 instances for high availability and cost-effectiveness; designed and configured VPCs including subnets, network ACLs, Internet Gateways, and Route Tables for isolated network environments.</li>
+      <li>Implemented scalable storage solutions using Amazon S3 for data backup, archival, and disaster recovery.</li>
+      <li>Configured and managed Elastic Load Balancers (ELB) to distribute incoming traffic across multiple targets, enhancing fault tolerance.</li>
+      <li>Streamlined CI/CD pipelines using AWS CodePipeline and CodeDeploy, enabling seamless integration and automated deployments.</li>
+      <li>Architected a dual-database system (PostgreSQL + MongoDB) with 100+ Sequelize models, 400+ migrations, and multi-tenant data isolation scoped by company, user, and location.</li>
+      <li>Built asynchronous job processing pipelines using BullMQ and Redis for review fetching, sentiment analysis, report generation, and email notifications.</li>
+      <li>Integrated Stripe for subscription billing and webhook-based payment processing; implemented SendGrid for transactional emails with webhook verification.</li>
+      <li>Implemented Google My Business OAuth integration for automated location sync, review management, and insights aggregation via Google Business APIs.</li>
+      <li>Deployed AWS Lambda functions for serverless sentiment analysis and review data processing; built role-based access control (RBAC) with JWT + Passport.js across multi-tenant endpoints.</li>
+    </ul>
+  </div>
+
+  <!-- Agile District -->
+  <div class="job">
+    <div class="job-header">
+      <span class="company">Agile District</span>
+      <span class="dates">Feb 2022 — May 2023</span>
+    </div>
+    <div class="job-role">Senior Backend Developer — NowVPlay (nowvplay.com)</div>
+    <ul>
+      <li>Built the backend for NowVPlay, a sports venue management platform enabling match organization, venue booking, academy enrollment, and player hiring across communities.</li>
+      <li>Designed and implemented low-latency, high-availability applications with MongoDB for complex data structures including venue listings, match scheduling, and subscription management.</li>
+      <li>Architected and deployed infrastructure for Node.js and MongoDB projects; implemented AWS Pipeline and Elastic Beanstalk (EB) for CI/CD with zero-downtime deployments.</li>
+      <li>Engineered real-time notification and messaging service with Socket.IO for instant match invitations, booking confirmations, and live activity updates.</li>
+      <li>Implemented content moderation using NSFWJS for image safety and bad-words filter for language moderation across user-generated content.</li>
+      <li>Integrated GitHub workflows with ESLint, Sentry, CodeClimate, and Dependabot for continuous quality assurance.</li>
+      <li>Crafted comprehensive test suites utilizing Chai, Mocha, and Chai HTTP to ensure API reliability and performance.</li>
+    </ul>
+  </div>
+
+  <!-- Zamulk -->
+  <div class="job">
+    <div class="job-header">
+      <span class="company">Zamulk.com</span>
+      <span class="dates">Jan 2020 — Jan 2022</span>
+    </div>
+    <div class="job-role">Software Engineer — zamulk.com (Real Estate Portal)</div>
+    <ul>
+      <li>Built backend systems for Pakistan's real estate portal covering 100+ cities — property buying, renting, and auctions for residential, commercial, and agricultural listings.</li>
+      <li>Developed RESTful APIs for property listings, search, filtering, Vision 360° virtual tours, online auction room with real-time bidding, and agent directory with verification workflows.</li>
+      <li>Engineered real-time communication system with live chat, audio/video calls, and conference calling between buyers, sellers, and agents using Socket.IO.</li>
+      <li>Designed MongoDB data architecture for geospatial property search, map-based filtering, and location queries; implemented security and role-based access control.</li>
+    </ul>
+  </div>
+
+  <!-- ═══════ KEY PROJECTS & CONSULTING ═══════ -->
+  <div class="section-title">Key Projects & Consulting</div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="company">GoTo API — Enterprise Communication Platform</span>
+      <span class="dates">NestJS, TypeScript, Next.js</span>
+    </div>
+    <ul>
+      <li>Built NestJS monorepo integrating GoTo Connect APIs for webhook processing, call recording management, and AI transcription using OpenAI GPT-4o and AWS Transcribe. Includes RedTail CRM integration, Agenda job scheduler, and CI/CD with GitHub Actions.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="company">AT-Function-GPT — AI Ticket Intelligence</span>
+      <span class="dates">NestJS, TypeScript, Next.js 14</span>
+    </div>
+    <ul>
+      <li>Automated Autotask PSA ticket analysis with GPT-4o-mini. Webhooks gather ticket data, company info, image attachments, and IT Glue enrichment — AI generates analysis notes posted back to tickets. Includes Azure Key Vault and Next.js admin dashboard.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="company">US RIDE — Fair Ridesharing Platform (Consultant)</span>
+      <span class="dates">Node.js, Socket.IO, Stripe</span>
+    </div>
+    <ul>
+      <li>Architecture consultant for us-ride.com. Designed real-time ride tracking with Socket.IO, geolocation matching with Google Maps API, Stripe peer-to-peer payment flow, multi-channel notifications (Firebase, Twilio, OneSignal), and MongoDB schema for high-throughput ride data.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="company">Obenan — AI-Powered Business Management SaaS</span>
+      <span class="dates">Node.js, PostgreSQL, AWS</span>
+    </div>
+    <ul>
+      <li>Architected a SaaS platform managing locations, reviews, and engagement across thousands of businesses. Dual-database (PostgreSQL + MongoDB) with 100+ models, 400+ migrations, AI sentiment analysis (GPT-4, Claude, Gemini), BullMQ job pipelines, Stripe billing, and full AWS infrastructure.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="company">NowVPlay — Sports Venue Management Platform</span>
+      <span class="dates">Node.js, Socket.IO, AWS</span>
+    </div>
+    <ul>
+      <li>Built backend for a sports platform enabling match organization, venue booking, academy enrollment, and player hiring. Real-time notifications via Socket.IO, content moderation with NSFWJS, CI/CD with AWS Elastic Beanstalk, and test suites with Chai/Mocha.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <span class="company">Zamulk — Real Estate Portal (100+ Cities)</span>
+      <span class="dates">Node.js, MongoDB, Socket.IO</span>
+    </div>
+    <ul>
+      <li>Built backend for Pakistan's real estate portal — property buying, renting, and auctions. Developed APIs for Vision 360° virtual tours, online auction room with real-time bidding, live chat/video calls, geospatial property search, and agent directory with verification.</li>
+    </ul>
+  </div>
+
+  <!-- ═══════ BOTTOM SECTION: SKILLS + EDUCATION ═══════ -->
+  <div class="bottom-grid">
+    <div>
+      <!-- Skills -->
+      <div class="section-title">Skills</div>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <span class="label">Backend:</span>
+          <span class="values">Node.js, Express.js, NestJS, REST APIs, GraphQL, Socket.IO, Python, Nginx</span>
+        </div>
+        <div class="skill-category">
+          <span class="label">Frontend:</span>
+          <span class="values">React.js, Next.js, JavaScript, TypeScript</span>
+        </div>
+        <div class="skill-category">
+          <span class="label">Databases:</span>
+          <span class="values">MongoDB, PostgreSQL, MySQL, Redis, Sequelize</span>
+        </div>
+        <div class="skill-category">
+          <span class="label">Cloud & DevOps:</span>
+          <span class="values">AWS (EC2, S3, Lambda, VPC, ELB, CodePipeline), Azure Functions, Docker</span>
+        </div>
+        <div class="skill-category">
+          <span class="label">AI & LLMs:</span>
+          <span class="values">Claude AI, OpenAI (GPT-4, Codex), Gemini, Vibe Coding, RAG, Fine-tuning, Prompt Engineering</span>
+        </div>
+        <div class="skill-category">
+          <span class="label">Tools:</span>
+          <span class="values">GitHub, Jira, Sentry, CodeClimate, JWT, AutoTask, ITGlue, BullMQ, Stripe, SendGrid</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Education -->
+      <div class="section-title">Education</div>
+      <div class="edu-row">
+        <span class="school">NUML, Islamabad</span>
+        <span class="year">2016 — 2020</span>
+      </div>
+      <div class="edu-degree">Bachelor of Software Engineering</div>
+
+      <!-- Languages -->
+      <div class="section-title" style="margin-top: 8px;">Languages</div>
+      <div class="languages">English, Urdu, Punjabi</div>
+    </div>
+  </div>
+
+  <!-- ═══════ COVER LETTER & SUMMARY GENERATOR (hidden on print) ═══════ -->
+  <div class="generator-section">
+    <h2>Cover Letter & Summary Generator</h2>
+    <p class="hint">This section is for drafting only — it will NOT appear when you print or export as PDF.</p>
+
+    <label for="companyName">Company / Position</label>
+    <input type="text" id="companyName" placeholder="e.g. TCP, Jazz World, Careem, Systems Limited...">
+    <p class="hint">Type a company name and the summary & cover letter will update automatically.</p>
+
+    <label for="summaryField">Summary</label>
+    <textarea id="summaryField" rows="5" placeholder="Type a company name above to generate..."></textarea>
+    <button class="btn-copy" onclick="copyToClipboard('summaryField')">Copy Summary</button>
+
+    <label for="coverLetterField">Cover Letter</label>
+    <textarea id="coverLetterField" rows="20" placeholder="Type a company name above to generate..."></textarea>
+    <button class="btn-copy" onclick="copyToClipboard('coverLetterField')">Copy Cover Letter</button>
+  </div>
+
+</div>
+
+<script>
+  function copyToClipboard(id) {
+    const el = document.getElementById(id);
+    el.select();
+    navigator.clipboard.writeText(el.value).then(() => {
+      const btn = el.nextElementSibling;
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = original, 1500);
+    });
+  }
+
+  function generateContent(company) {
+    const c = company.trim();
+    if (!c) {
+      document.getElementById('summaryField').value = '';
+      document.getElementById('coverLetterField').value = '';
+      return;
+    }
+
+    const summary = `Results-driven Senior Software Engineer with 6+ years of experience building scalable, high-performance web applications, RESTful APIs, and AI-powered systems. Proven expertise in Node.js, PostgreSQL, MongoDB, and AWS cloud infrastructure — with hands-on experience integrating LLMs (GPT-4, Claude, Gemini) and designing RAG architectures for production AI systems. Adept at architecting multi-tenant SaaS platforms, real-time systems with Socket.IO, and asynchronous job pipelines using BullMQ and Redis. Passionate about leveraging technology to drive digital transformation and deliver impactful products at scale — aligned with ${c}'s mission and growth.`;
+
+    const coverLetter = `Dear Hiring Manager,
+
+I am writing to express my strong interest in joining ${c}'s engineering team. As a Senior Full-Stack Engineer with over six years of experience building scalable digital platforms, AI-powered systems, and cloud-native infrastructure, I am excited about the opportunity to contribute to ${c}'s technical vision and growth.
+
+In my current role at Obenan, I have architected and maintained a multi-tenant SaaS platform serving thousands of businesses — powered by a dual-database system (PostgreSQL + MongoDB) with 100+ Sequelize models, 400+ migrations, and complete AWS infrastructure including EC2, S3, Lambda, VPC, ELB, and CI/CD pipelines via CodePipeline and CodeDeploy. This experience directly aligns with the scale and complexity that ${c} operates at.
+
+I have built production AI systems integrating Claude AI, GPT-4, and Gemini — including fine-tuned models, RAG-based architectures, and real-time conversational AI. My experience with asynchronous job processing (BullMQ, Redis), real-time communications (Socket.IO), and payment integrations (Stripe) maps directly to the kind of high-throughput, user-facing systems that power modern digital ecosystems.
+
+What I bring to the table:
+• Scale: Designed systems handling thousands of concurrent businesses with multi-tenant data isolation, RBAC, and high-availability deployments.
+• AI & Innovation: Hands-on experience with LLM integration, fine-tuning, prompt engineering, and agentic workflows.
+• Cloud & DevOps: Deep AWS expertise (EC2, Lambda, S3, VPC, ELB, CodePipeline) plus Docker, GitHub Actions, and monitoring with Sentry and CodeClimate.
+• Collaboration: Worked with international clients and cross-functional teams, establishing coding standards, branching strategies, and quality gates.
+
+I would welcome the opportunity to discuss how my experience in building scalable, AI-enhanced platforms can contribute to ${c}'s continued growth and innovation.
+
+Warm regards,
+Saad Sohail`;
+
+    document.getElementById('summaryField').value = summary;
+    document.getElementById('coverLetterField').value = coverLetter;
+  }
+
+  // Auto-generate on typing with a small debounce
+  let debounceTimer;
+  document.getElementById('companyName').addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => generateContent(this.value), 300);
+  });
+</script>
+</body>
+</html>
