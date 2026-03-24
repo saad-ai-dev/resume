@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saad Sohail — GitHub Engineering Stats</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .header h1 {
+    font-size: 28pt;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+  }
+
+  .header .subtitle {
+    font-size: 13pt;
+    color: #8b949e;
+    margin-top: 4px;
+  }
+
+  .header .period {
+    font-size: 10pt;
+    color: #58a6ff;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  .header .note {
+    font-size: 9pt;
+    color: #6e7681;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* Stats Cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-card .number {
+    font-size: 32pt;
+    font-weight: 800;
+    color: #58a6ff;
+    line-height: 1.1;
+  }
+
+  .stat-card .number.green { color: #3fb950; }
+  .stat-card .number.purple { color: #bc8cff; }
+  .stat-card .number.orange { color: #d29922; }
+
+  .stat-card .label {
+    font-size: 9.5pt;
+    color: #8b949e;
+    margin-top: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 2px solid #30363d;
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+
+  /* Yearly Breakdown */
+  .year-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .year-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 18px;
+  }
+
+  .year-card h3 {
+    font-size: 12pt;
+    color: #58a6ff;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .year-card .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5pt;
+    padding: 4px 0;
+    border-bottom: 1px solid #21262d;
+  }
+
+  .year-card .row:last-child { border-bottom: none; }
+  .year-card .row .val { color: #e6edf3; font-weight: 700; }
+  .year-card .row .lbl { color: #8b949e; }
+
+  /* Repo Breakdown */
+  .repo-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .repo-item {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .repo-item .name {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #e6edf3;
+  }
+
+  .repo-item .commits {
+    font-size: 10pt;
+    font-weight: 800;
+    color: #3fb950;
+  }
+
+  .repo-item .bar-bg {
+    flex: 1;
+    height: 6px;
+    background: #21262d;
+    border-radius: 3px;
+    margin: 0 14px;
+    overflow: hidden;
+  }
+
+  .repo-item .bar-fill {
+    height: 100%;
+    background: #3fb950;
+    border-radius: 3px;
+  }
+
+  /* Tech Stack */
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tech-tag {
+    background: #1f2937;
+    border: 1px solid #30363d;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #e6edf3;
+  }
+
+  .tech-tag.primary { border-color: #58a6ff; color: #58a6ff; }
+  .tech-tag.ai { border-color: #bc8cff; color: #bc8cff; }
+
+  /* Merge Rate */
+  .merge-bar-container {
+    margin-top: 16px;
+  }
+
+  .merge-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5pt;
+    color: #8b949e;
+    margin-bottom: 6px;
+  }
+
+  .merge-bar {
+    height: 12px;
+    background: #21262d;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .merge-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3fb950, #58a6ff);
+    border-radius: 6px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #21262d;
+    font-size: 9pt;
+    color: #6e7681;
+  }
+
+  .footer a {
+    color: #58a6ff;
+    text-decoration: none;
+  }
+
+  .footer a:hover { text-decoration: underline; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .year-grid { grid-template-columns: 1fr; }
+    .repo-list { grid-template-columns: 1fr; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .stat-card, .year-card, .repo-item { border-color: #ddd; background: #f6f8fa; }
+    .stat-card .number { color: #0969da; }
+    .stat-card .number.green { color: #1a7f37; }
+    .stat-card .number.purple { color: #8250df; }
+    .stat-card .number.orange { color: #9a6700; }
+    .section-title { color: #1a1a1a; border-color: #d0d7de; }
+    .year-card h3 { color: #0969da; }
+    .tech-tag { background: #f6f8fa; border-color: #d0d7de; color: #1a1a1a; }
+    .tech-tag.primary { color: #0969da; border-color: #0969da; }
+    .tech-tag.ai { color: #8250df; border-color: #8250df; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>SAAD SOHAIL</h1>
+    <div class="subtitle">GitHub Engineering Contributions @ Obenan</div>
+    <div class="period">May 2023 — March 2026 (Private Organization)</div>
+    <div class="note">Stats sourced from private GitHub organization (obenan-dashboard) via GitHub API</div>
+  </div>
+
+  <!-- Top-Level Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="number green">4,542</div>
+      <div class="label">Total Commits</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">479</div>
+      <div class="label">Pull Requests</div>
+    </div>
+    <div class="stat-card">
+      <div class="number purple">580</div>
+      <div class="label">PRs Reviewed</div>
+    </div>
+    <div class="stat-card">
+      <div class="number orange">69</div>
+      <div class="label">Issues Created</div>
+    </div>
+  </div>
+
+  <!-- Merge Rate -->
+  <div class="section">
+    <div class="section-title">Pull Request Merge Rate</div>
+    <div class="merge-bar-container">
+      <div class="merge-bar-label">
+        <span>449 Merged / 479 Total</span>
+        <span style="color: #3fb950; font-weight: 700;">93.7%</span>
+      </div>
+      <div class="merge-bar">
+        <div class="fill" style="width: 93.7%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Yearly Breakdown -->
+  <div class="section">
+    <div class="section-title">Yearly Breakdown</div>
+    <div class="year-grid">
+      <div class="year-card">
+        <h3>2023 (May–Dec)</h3>
+        <div class="row"><span class="lbl">Pull Requests</span><span class="val">119</span></div>
+        <div class="row"><span class="lbl">PRs Reviewed</span><span class="val">45</span></div>
+      </div>
+      <div class="year-card">
+        <h3>2024</h3>
+        <div class="row"><span class="lbl">Pull Requests</span><span class="val">114</span></div>
+        <div class="row"><span class="lbl">PRs Reviewed</span><span class="val">74</span></div>
+      </div>
+      <div class="year-card">
+        <h3>2025–2026 (Jan–Mar)</h3>
+        <div class="row"><span class="lbl">Pull Requests</span><span class="val">246</span></div>
+        <div class="row"><span class="lbl">PRs Reviewed</span><span class="val">461</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repo Breakdown -->
+  <div class="section">
+    <div class="section-title">Commits by Repository</div>
+    <div class="repo-list">
+      <div class="repo-item">
+        <span class="name">obenan-api</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 100%;"></div></div>
+        <span class="commits">3,989</span>
+      </div>
+      <div class="repo-item">
+        <span class="name">whole-brain</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 4.6%;"></div></div>
+        <span class="commits">185</span>
+      </div>
+      <div class="repo-item">
+        <span class="name">obenan-listing-api</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 3.6%;"></div></div>
+        <span class="commits">142</span>
+      </div>
+      <div class="repo-item">
+        <span class="name">rough-report</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 2.5%;"></div></div>
+        <span class="commits">98</span>
+      </div>
+      <div class="repo-item">
+        <span class="name">landing-cms-v2</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 1.7%;"></div></div>
+        <span class="commits">67</span>
+      </div>
+      <div class="repo-item">
+        <span class="name">obenan-frontend</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 0.9%;"></div></div>
+        <span class="commits">36</span>
+      </div>
+      <div class="repo-item">
+        <span class="name">admin-dashboard</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 0.6%;"></div></div>
+        <span class="commits">22</span>
+      </div>
+      <div class="repo-item">
+        <span class="name">Digital-Twin-Profile</span>
+        <div class="bar-bg"><div class="bar-fill" style="width: 0.1%;"></div></div>
+        <span class="commits">3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="section">
+    <div class="section-title">Tech Stack Used</div>
+    <div class="tech-tags">
+      <span class="tech-tag primary">Node.js</span>
+      <span class="tech-tag primary">Express.js</span>
+      <span class="tech-tag primary">NestJS</span>
+      <span class="tech-tag primary">PostgreSQL</span>
+      <span class="tech-tag primary">MongoDB</span>
+      <span class="tech-tag primary">Sequelize</span>
+      <span class="tech-tag primary">React.js</span>
+      <span class="tech-tag primary">Next.js</span>
+      <span class="tech-tag">TypeScript</span>
+      <span class="tech-tag">Redis</span>
+      <span class="tech-tag">BullMQ</span>
+      <span class="tech-tag">Socket.IO</span>
+      <span class="tech-tag">AWS (EC2, S3, Lambda, VPC)</span>
+      <span class="tech-tag">Docker</span>
+      <span class="tech-tag">Stripe</span>
+      <span class="tech-tag">SendGrid</span>
+      <span class="tech-tag ai">Claude AI</span>
+      <span class="tech-tag ai">OpenAI GPT-4</span>
+      <span class="tech-tag ai">Gemini</span>
+      <span class="tech-tag ai">RAG Architecture</span>
+      <span class="tech-tag">GitHub Actions</span>
+      <span class="tech-tag">Sentry</span>
+      <span class="tech-tag">CodeClimate</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      <a href="https://rishat5081.github.io/resume/SAAD_SOHAIL_Resume.html">View Full Resume</a> &middot;
+      <a href="https://github.com/rishat5081">github.com/rishat5081</a> &middot;
+      <a href="https://www.linkedin.com/in/dev-saad-sohail/">LinkedIn</a>
+    </p>
+    <p style="margin-top: 6px;">Last updated: March 2026 &middot; Data sourced from GitHub API</p>
+  </div>
+
+</div>
+</body>
+</html>
