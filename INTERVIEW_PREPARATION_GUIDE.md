@@ -204,22 +204,20 @@ Each topic is covered in-depth with concepts, code examples, comparisons, and in
 
 ## Evaluation Platforms for Practice
 
-### Coding Challenges
+### Coding Challenges (100% Free)
 | Platform | Best For | Link |
 |----------|----------|------|
-| **LeetCode** | Algorithm problems, FAANG prep | [leetcode.com](https://leetcode.com) |
-| **HackerRank** | Skill assessments, certificates | [hackerrank.com](https://www.hackerrank.com) |
-| **CodeSignal** | Company-specific assessments | [codesignal.com](https://codesignal.com) |
-| **Codewars** | Kata-style practice, community | [codewars.com](https://www.codewars.com) |
-| **InterviewBit** | Structured interview prep | [interviewbit.com](https://www.interviewbit.com) |
-| **Edabit** | Beginner-friendly challenges | [edabit.com](https://edabit.com) |
+| **HackerRank** | Skill assessments, free certificates | [hackerrank.com](https://www.hackerrank.com) |
+| **Codewars** | Kata-style practice, community ranking | [codewars.com](https://www.codewars.com) |
 | **JSchallenger** | JavaScript-specific practice | [jschallenger.com](https://www.jschallenger.com) |
 | **Exercism** | Mentored JS/TS tracks | [exercism.org](https://exercism.org) |
+| **Edabit** | Beginner-friendly challenges | [edabit.com](https://edabit.com) |
+| **freeCodeCamp** | JS algorithms + API projects + free certificates | [freecodecamp.org](https://www.freecodecamp.org) |
 
-### Project-Based Practice
+### Project-Based Practice (100% Free)
 | Platform | Best For | Link |
 |----------|----------|------|
-| **Frontend Mentor** | Full-stack JS projects with real designs | [frontendmentor.io](https://www.frontendmentor.io) |
+| **The Odin Project** | Full-stack JS curriculum from zero | [theodinproject.com](https://www.theodinproject.com) |
 | **Dev.to** | Community challenges and code reviews | [dev.to](https://dev.to) |
 | **GitHub** | Open source Node.js projects | [github.com](https://github.com) |
 
