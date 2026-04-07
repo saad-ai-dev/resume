@@ -224,6 +224,136 @@ const activeNames = users
   .map(u => u.name); // ['Ali', 'Saad']
 ```
 
+### Classes & Static Methods
+**What:** ES6 classes with `static` keyword — static methods/properties belong to the class itself, not to instances, and are called directly on the class.
+**Why:** Interviewers test this to see if you understand the difference between instance-level and class-level behavior, especially in utility classes and factory patterns.
+
+```javascript
+class User {
+  // Static property — shared across all instances, belongs to the class
+  static count = 0;
+
+  // Static method — called on the class, NOT on instances
+  static create(name, email) {
+    return new User(name, email);  // Factory pattern
+  }
+
+  static getCount() {
+    return User.count;
+  }
+
+  // Instance constructor
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+    User.count++;  // Access static via class name, not `this`
+  }
+
+  // Instance method — called on instances
+  greet() {
+    return `Hello, I'm ${this.name}`;
+  }
+}
+
+// Static — called on the CLASS
+const user1 = User.create('Saad', 'saad@example.com');  // ✓ Factory
+const user2 = User.create('Ali', 'ali@example.com');     // ✓ Factory
+console.log(User.getCount());  // 2 ✓
+console.log(User.count);       // 2 ✓
+
+// Instance — called on the OBJECT
+console.log(user1.greet());    // "Hello, I'm Saad" ✓
+
+// GOTCHA: You CANNOT call static methods on instances
+user1.create('Test', 'test@x.com');  // ✗ TypeError: user1.create is not a function
+user1.getCount();                     // ✗ TypeError: user1.getCount is not a function
+
+// GOTCHA: You CANNOT call instance methods on the class
+User.greet();  // ✗ TypeError: User.greet is not a function
+```
+
+**Static vs Instance — Quick Reference:**
+
+| Feature | Static | Instance |
+|---------|--------|----------|
+| Keyword | `static methodName()` | `methodName()` |
+| Called on | The class: `User.method()` | The object: `user.method()` |
+| Access `this` | `this` = the class itself | `this` = the instance |
+| Use case | Utilities, factories, counters | Object-specific behavior |
+| Inherited? | Yes (by subclasses, not instances) | Yes (by instances via prototype) |
+
+**Real-world use cases:**
+
+```javascript
+// 1. Factory pattern (your NestJS services)
+class ReviewService {
+  static createFromAPI(apiResponse) {
+    return new ReviewService(apiResponse.data, apiResponse.meta);
+  }
+}
+
+// 2. Utility/helper methods
+class Validator {
+  static isEmail(str) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+  }
+  static isURL(str) {
+    try { new URL(str); return true; } catch { return false; }
+  }
+}
+// Usage: Validator.isEmail('saad@test.com') — no need to create an instance
+
+// 3. Singleton pattern
+class Database {
+  static instance = null;
+
+  static getInstance() {
+    if (!Database.instance) {
+      Database.instance = new Database();
+    }
+    return Database.instance;
+  }
+
+  constructor() {
+    if (Database.instance) throw new Error('Use Database.getInstance()');
+    this.connection = createConnection();
+  }
+}
+
+// 4. Configuration/constants
+class HttpStatus {
+  static OK = 200;
+  static CREATED = 201;
+  static BAD_REQUEST = 400;
+  static UNAUTHORIZED = 401;
+  static NOT_FOUND = 404;
+  static INTERNAL_ERROR = 500;
+}
+// Usage: res.status(HttpStatus.NOT_FOUND).json({ error: 'Not found' });
+```
+
+**Inheritance with static methods:**
+```javascript
+class Animal {
+  static species = 'Animal';
+  static describe() {
+    return `This is a ${this.species}`;  // `this` = the class calling it
+  }
+}
+
+class Dog extends Animal {
+  static species = 'Dog';
+}
+
+console.log(Animal.describe()); // "This is a Animal"
+console.log(Dog.describe());    // "This is a Dog" — static methods ARE inherited
+```
+
+**Interview Q: When should you use static vs instance methods?**
+- **Static:** When the method doesn't need instance data — utilities, factories, counters, config
+- **Instance:** When the method operates on instance-specific data (`this.name`, `this.email`)
+- **Rule of thumb:** If the method doesn't use `this` (instance properties), it should probably be static
+
 ### WeakMap & WeakSet
 **What:** Collections similar to Map/Set but with weakly-held keys (objects only) that allow garbage collection when no other references exist.
 **Why:** Interviewers ask about these to test your knowledge of memory management and to see if you know how to store metadata on objects without causing memory leaks.
